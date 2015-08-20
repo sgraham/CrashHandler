@@ -267,9 +267,10 @@ public:
                                       &OnDumpEvent, new ClientRecord(client),
                                       INFINITE, WT_EXECUTEDEFAULT);
 
-        ::RegisterWaitForSingleObject(&client.process_tpr,
+        ClientRecord* process_end_client_record = new ClientRecord(client);
+        ::RegisterWaitForSingleObject(&process_end_client_record->process_tpr,
                                       client.process,
-                                      &OnProcessEnd, new ClientRecord(client),
+                                      &OnProcessEnd, process_end_client_record,
                                       INFINITE, WT_EXECUTEONLYONCE);
 
         break;
